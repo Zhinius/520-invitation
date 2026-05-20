@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>520 Date Invitation</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #ffe4ec, #fff8f0);
+      color: #333;
+    }
+
+    .page {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 32px 18px 60px;
+      min-height: 100vh;
+    }
+
+    .screen {
+      display: none;
+      animation: fadeIn 0.35s ease;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 34px;
+    }
+
+    .hero h1 {
+      font-size: 38px;
+      margin: 0 0 12px;
+      color: #c9184a;
+    }
+
+    .hero p {
+      font-size: 17px;
+      line-height: 1.6;
+      margin: 0 auto;
+      max-width: 780px;
+      color: #5c2b38;
+    }
+
+    .date-box {
+      margin: 24px auto 0;
+      max-width: 620px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(201, 24, 74, 0.16);
+      border-radius: 18px;
+      padding: 16px 18px;
+      font-size: 15px;
+      line-height: 1.6;
+      box-shadow: 0 8px 24px rgba(201, 24, 74, 0.08);
+    }
+
+    .section-title {
+      text-align: center;
+      color: #9d174d;
+      font-size: 26px;
+      margin: 0 0 12px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      font-size: 15px;
+      color: #6b3b4c;
+      margin: 0 auto 24px;
+      max-width: 700px;
+      line-height: 1.6;
+    }
+
+    .cards {
+      display: grid;
+      gap: 22px;
+    }
+
+    .brunch-cards {
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .activity-cards {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: 3px solid transparent;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.16);
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .image-grid img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      display: block;
+      background: #f5f5f5;
+    }
+
+    .card > img {
+      width: 100%;
+      height: 175px;
+      object-fit: cover;
+      display: block;
+      background: #f5f5f5;
+    }
+
+    .card-content {
+      padding: 18px;
+    }
+
+    .card h3 {
+      margin: 0 0 12px;
+      color: #c9184a;
+      font-size: 21px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #ffe3ec;
+      color: #9d174d;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .info-list {
+      margin: 10px 0 18px;
+      padding-left: 20px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #444;
+    }
+
+    .note {
+      margin: 8px 0 18px;
+      font-size: 13px;
+      color: #7a2e44;
+      background: #fff1f5;
+      padding: 9px 10px;
+      border-radius: 12px;
+      line-height: 1.5;
+    }
+
+    .button {
+      display: inline-block;
+      border: none;
+      text-decoration: none;
+      background: #ff5c8a;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .button:hover {
+      background: #c9184a;
+      transform: translateY(-1px);
+    }
+
+    .button.secondary {
+      background: #c9184a;
+    }
+
+    .button.back {
+      background: #7a2e44;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .choice-summary {
+      margin: 0 auto 26px;
+      max-width: 760px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      padding: 18px;
+      text-align: center;
+      border: 1px solid rgba(201, 24, 74, 0.16);
+      box-shadow: 0 8px 22px rgba(201, 24, 74, 0.08);
+      line-height: 1.7;
+      color: #5c2b38;
+    }
+
+    .invitation {
+      max-width: 980px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.88);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(201, 24, 74, 0.14);
+    }
+
+    .invitation h2 {
+      text-align: center;
+      color: #9d174d;
+      margin: 0 0 14px;
+      font-size: 28px;
+    }
+
+    .formal-text {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 24px;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #4b2b36;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 16px;
+      background: white;
+      margin-top: 18px;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #f2c8d6;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    th {
+      background: #ffe3ec;
+      color: #9d174d;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 34px;
+      color: #7a2e44;
+      font-size: 15px;
+    }
+
+    @media (max-width: 1200px) {
+      .activity-cards {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 850px) {
+      .brunch-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .activity-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      .activity-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .image-grid img,
+      .card > img {
+        height: 185px;
+      }
+
+      .invitation {
+        padding: 20px;
+      }
+
+      th, td {
+        font-size: 14px;
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+
+    <!-- SCREEN 1: LUNCH / BRUNCH CHOICE -->
+    <section id="screen-lunch" class="screen active">
+      <div class="hero">
+        <h1>Happy 520, my love 💕</h1>
+
+        <p>
+          Before the official invitation is issued, you have two important decisions to make.
+          First, please choose where we should have brunch/lunch.
+        </p>
+
+        <div class="date-box">
+          <strong>Date:</strong> 29 May 2026 <br>
+          <strong>Step 1:</strong> Pick our brunch/lunch spot
+        </div>
+      </div>
+
+      <h2 class="section-title">Pick Our Brunch / Lunch Spot 🍽️</h2>
+      <p class="section-subtitle">
+        Choose one place for us to start the date properly.
+      </p>
+
+      <div class="cards brunch-cards">
+
+        <div class="card">
+          <div class="image-grid">
+            <img src="Images/Cafe Gui 1.jpg" alt="Gui Cafe">
+            <img src="Images/Cafe Gui 2.jpg" alt="Gui Cafe">
+          </div>
+
+          <div class="card-content">
+            <span class="tag">Lunch Option 1</span>
+            <h3>Gui Cafe</h3>
+
+            <ul class="info-list">
+              <li><strong>Cuisine:</strong> Korean-inspired cafe food, desserts, coffee, and light mains</li>
+              <li><strong>Vibe:</strong> Cosy, pretty, relaxed, and suitable for a sweet cafe-style lunch date</li>
+            </ul>
+
+            <button class="button" onclick="chooseLunch('Gui Cafe')">
+              Choose Gui Cafe 💌
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="image-grid">
+            <img src="Images/Go Rogue 1.jpg" alt="Go Rogue">
+            <img src="Images/Go Rogue 2.jpg" alt="Go Rogue">
+          </div>
+
+          <div class="card-content">
+            <span class="tag">Lunch Option 2</span>
+            <h3>Go Rogue</h3>
+
+            <ul class="info-list">
+              <li><strong>Cuisine:</strong> Modern cafe-style food with Western brunch plates, mains, coffee, and desserts</li>
+              <li><strong>Vibe:</strong> Trendy, casual, slightly playful, and good for a comfortable brunch/lunch date</li>
+            </ul>
+
+            <button class="button" onclick="chooseLunch('Go Rogue')">
+              Choose Go Rogue 💌
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SCREEN 2: SECOND ACTIVITY CHOICE -->
+    <section id="screen-activity" class="screen">
+      <div class="hero">
+        <h1>Second Decision ✨</h1>
+
+        <p>
+          Lunch has been selected. Now please choose what we should do after baking class.
+        </p>
+
+        <div class="date-box">
+          <strong>Selected lunch:</strong> <span id="activityPageLunch">Not selected yet</span><br>
+          <strong>Step 2:</strong> Pick our 4pm - 6pm activity
+        </div>
+      </div>
+
+      <h2 class="section-title">Pick Our 4pm - 6pm Activity 💕</h2>
+      <p class="section-subtitle">
+        Choose one activity for the 2-hour slot after baking class.
+      </p>
+
+      <div class="cards activity-cards">
+
+        <div class="card">
+          <img src="Images/Movie.jpg" alt="Movies">
+
+          <div class="card-content">
+            <span class="tag">Activity Option 1</span>
+            <h3>Movies</h3>
+
+            <ul class="info-list">
+              <li><strong>Activity type:</strong> Movie date</li>
+              <li><strong>Vibe:</strong> Chill, simple, and comfortable</li>
+            </ul>
+
+            <div class="note">
+              Note: Subject to movie availability and timing.
+            </div>
+
+            <button class="button" onclick="chooseActivity('Movies')">
+              Choose Movies 💌
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="Images/Cozy Place.jpg" alt="Cozyplace">
+
+          <div class="card-content">
+            <span class="tag">Activity Option 2</span>
+            <h3>Private Room at Cozyplace</h3>
+
+            <ul class="info-list">
+              <li><strong>Activity type:</strong> Private room with streaming services and games</li>
+              <li><strong>Vibe:</strong> Cosy, private, relaxed, and playful</li>
+            </ul>
+
+            <button class="button" onclick="chooseActivity('Private Room at Cozyplace')">
+              Choose Cozyplace 💌
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="Images/Pet Cafe.jpg" alt="Pet Cafe">
+
+          <div class="card-content">
+            <span class="tag">Activity Option 3</span>
+            <h3>Pet Cafe</h3>
+
+            <ul class="info-list">
+              <li><strong>Activity type:</strong> Animal cafe date</li>
+              <li><strong>Vibe:</strong> Cute, light-hearted, and relaxing</li>
+            </ul>
+
+            <div class="note">
+              Note: Either cat or dog cafe.
+            </div>
+
+            <button class="button" onclick="chooseActivity('Pet Cafe')">
+              Choose Pet Cafe 💌
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="Images/Arcade.jpg" alt="Arcade">
+
+          <div class="card-content">
+            <span class="tag">Activity Option 4</span>
+            <h3>Arcade</h3>
+
+            <ul class="info-list">
+              <li><strong>Activity type:</strong> Arcade games</li>
+              <li><strong>Vibe:</strong> Fun, playful, energetic, and unserious</li>
+            </ul>
+
+            <button class="button" onclick="chooseActivity('Arcade')">
+              Choose Arcade 💌
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="Images/Haji Lane.jpg" alt="Haji Lane">
+
+          <div class="card-content">
+            <span class="tag">Activity Option 5</span>
+            <h3>Haji Lane Stroll</h3>
+
+            <ul class="info-list">
+              <li><strong>Activity type:</strong> Casual stroll</li>
+              <li><strong>Vibe:</strong> Colourful, aesthetic, relaxed, and photo-friendly</li>
+            </ul>
+
+            <button class="button" onclick="chooseActivity('Haji Lane Stroll')">
+              Choose Haji Lane 💌
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="button-row">
+        <button class="button back" onclick="showScreen('screen-lunch')">
+          ← Back to lunch choices
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 3: FORMAL INVITATION -->
+    <section id="screen-invitation" class="screen">
+      <div class="hero">
+        <h1>Official 520 Invitation 💌</h1>
+
+        <p>
+          Your choices have been recorded into the final itinerary.
+        </p>
+      </div>
+
+      <div class="choice-summary">
+        <strong>Selected choices:</strong><br>
+        Lunch: <span id="summaryLunch">Not selected yet</span><br>
+        4pm - 6pm Activity: <span id="summaryActivity">Not selected yet</span>
+      </div>
+
+      <div class="invitation">
+        <h2>Formal 520 Date Invitation</h2>
+
+        <p class="formal-text">
+          You are cordially invited to the 520 date with
+          <strong>Chen Yong Zhi</strong> on <strong>29th May 2026</strong>.
+          The date would be as such:
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Plan</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>12:00pm - 1:30pm</td>
+              <td>Lunch @ <span id="itineraryLunch">Selected lunch place</span></td>
+            </tr>
+
+            <tr>
+              <td>2:00pm - 4:00pm</td>
+              <td>Baking Class</td>
+            </tr>
+
+            <tr>
+              <td>4:00pm - 6:00pm</td>
+              <td><span id="itineraryActivity">Selected second activity</span></td>
+            </tr>
+
+            <tr>
+              <td>6:30pm - 8:00pm</td>
+              <td>Dinner @ Altro Zafferano</td>
+            </tr>
+
+            <tr>
+              <td>8:00pm onwards</td>
+              <td>Chill at home and head for prata supper</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="button-row">
+          <button class="button secondary" onclick="sendInvitationEmail()">Yes 💕</button>
+          <button class="button secondary" onclick="sendInvitationEmail()">Yes, obviously 💕</button>
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button class="button back" onclick="showScreen('screen-activity')">
+          ← Back to activity choices
+        </button>
+      </div>
+
+      <p class="footer">
+        There is no “No” option because the booking committee has already decided 😌💕
+      </p>
+    </section>
+
+  </main>
+
+  <script>
+    let selectedLunch = "";
+    let selectedActivity = "";
+
+    function showScreen(screenId) {
+      document.getElementById("screen-lunch").classList.remove("active");
+      document.getElementById("screen-activity").classList.remove("active");
+      document.getElementById("screen-invitation").classList.remove("active");
+
+      document.getElementById(screenId).classList.add("active");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    function chooseLunch(lunchName) {
+      selectedLunch = lunchName;
+
+      document.getElementById("activityPageLunch").textContent = selectedLunch;
+
+      showScreen("screen-activity");
+    }
+
+    function chooseActivity(activityName) {
+      selectedActivity = activityName;
+
+      document.getElementById("summaryLunch").textContent = selectedLunch;
+      document.getElementById("summaryActivity").textContent = selectedActivity;
+      document.getElementById("itineraryLunch").textContent = selectedLunch;
+      document.getElementById("itineraryActivity").textContent = selectedActivity;
+
+      showScreen("screen-invitation");
+    }
+
+    function sendInvitationEmail() {
+      if (selectedLunch === "" || selectedActivity === "") {
+        alert("Please choose one lunch option and one activity option first hehe 💕");
+        return;
+      }
+
+      const subject = "I accept the 520 Date Invitation 💕";
+
+      const body =
+`Dear Chen Yong Zhi,
+
+I hereby formally accept the 520 date invitation on 29th May 2026.
+
+My selected lunch option is: ${selectedLunch}
+My selected 4pm - 6pm activity is: ${selectedActivity}
+
+Final itinerary:
+12:00pm - 1:30pm: Lunch @ ${selectedLunch}
+2:00pm - 4:00pm: Baking Class
+4:00pm - 6:00pm: ${selectedActivity}
+6:30pm - 8:00pm: Dinner @ Altro Zafferano
+8:00pm onwards: Chill at home and head for prata supper
+
+Yes, I will attend the 520 date 💕`;
+
+      const mailtoLink =
+        "mailto:isanayushiro@gmail.com" +
+        "?subject=" + encodeURIComponent(subject) +
+        "&body=" + encodeURIComponent(body);
+
+      window.location.href = mailtoLink;
+    }
+  </script>
+</body>
+</html>
